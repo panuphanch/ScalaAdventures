@@ -29,30 +29,9 @@ class Test {
 
 val test = new Test
 
-class Person {
-	var name: String = ""
-	var age: Int = 0
-	def accessPrivateInformation() = println(Person.PrivateFileName)
-}
+case class Person(name: String, age: Int) {}
 
-object Person {
-	def apply(name: String) = {
-		var p = new Person
-		p.name = name
-		p
-	}
-	def apply(name: String, age: Int) = {
-		var p = new Person
-		p.name = name
-		p.age = age
-		p
-	}
-	private val PrivateFileName = "/usr/save/private"
-}
-
-val p1 = Person("Meee")
+val p1 = Person("Meee", 37)
 val p2 = Person("Meee", 37)
-p1.name
-p1.age
-p2.name
-p2.age
+p1 == p2
+p1.toString()
