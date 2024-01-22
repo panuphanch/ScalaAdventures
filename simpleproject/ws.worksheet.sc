@@ -36,14 +36,32 @@ val p2 = Person("Meee", 37)
 p1 == p2
 p1.toString()
 
-class Task(var id: Int, var title: String, var state: Int = 1) {
+class Task {
+	var id: Int = 0
+	var title: String = ""
+	var state: Int = 1
 	def next() = {
 		if (state == 3) 3 else state += 1
 	}
 }
 
-// val buyBanana = new Task(0, "Buy Banana", 1) // Short version
-val buyBanana = new Task(id = 0, title = "Buy Banana", state = 1)
+object Task {
+	def apply(id: Int, title: String, state: Int) = {
+		var t = new Task
+		t.id = id
+		t.title = title
+		t.state = state
+		t
+	}
+	def apply(id: Int, title: String) = {
+		var t = new Task
+		t.id = id
+		t.title = title
+		t
+	}
+}
+
+val buyBanana = Task(id = 0, title = "Buy Banana")
 buyBanana.next()
 buyBanana.state
 buyBanana.next()
