@@ -1,3 +1,4 @@
+import java.awt.Taskbar.State
 class ScalaClass(value: String) {
 	def oneParameter(x: String) = x
 	def >>(some: String) = s">>$some"
@@ -36,17 +37,21 @@ val p2 = Person("Meee", 37)
 p1 == p2
 p1.toString()
 
-case class Task(id: Int, title: String, var state: Int = 1) {
-	def next() = {
-		if (state == 3) 3 else state += 1
+object States extends scala.Enumeration {
+	type State = Value
+	var Todo, Doing, Done = Value
+}
+
+case class Task(id: Int, title: String, state: States.State = States.Todo) {
+	import States._
+	def next(): Task = {
+		if (state == Todo) copy(state = Doing)
+		else copy(state = Done)
 	}
 }
 
 val buyBanana = Task(id = 0, title = "Buy Banana")
-buyBanana.next()
-buyBanana.state
-buyBanana.next()
-buyBanana.state
-buyBanana.next()
-buyBanana.state
-
+val buyingBanana = buyBanana.next()
+buyBanana
+buyingBanana
+val doneBuyBanana = buyingBanana.next()
