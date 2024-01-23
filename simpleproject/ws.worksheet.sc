@@ -66,3 +66,21 @@ val buyingBanana = buyBanana.next()
 buyBanana
 buyingBanana
 val doneBuyBanana = buyingBanana.next()
+
+val something = 1
+something match {
+	case 1 => println("One")
+	case 2 => println("Two")
+	case _ => println("Other")
+}
+
+case class Something(content: String) {}
+val first = Something("first")
+val second = Something("second")
+val third = Something("third")
+
+third match {
+	case Something(content) if (content == "first") => println("FIRST")
+	case Something(content) if (content == "second") => println("SECOND")
+	case _ => println("ELSE")
+}
