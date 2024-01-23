@@ -37,41 +37,7 @@ val p2 = Person("Meee", 37)
 p1 == p2
 p1.toString()
 
-// object States extends scala.Enumeration {
-// 	type State = Value
-// 	var Todo, Doing, Done = Value
-// }
-
-trait State
-case object Todo extends State
-case object Doing extends State
-case object Done extends State
-
-
-trait TaskTrait {
-	val id: Int
-	def next(): TaskTrait
-	def previous(): TaskTrait
-}
-
-case class Task(id: Int, title: String, state: State = Todo) extends TaskTrait {
-	def next(): Task = {
-		if (state == Todo) copy(state = Doing)
-		else copy(state = Done)
-	}
-
-	def previous(): Task = {
-		if (state == Done) copy(state = Doing)
-		else copy(state = Todo)
-	}
-}
-
-val buyBanana = Task(id = 0, title = "Buy Banana")
-val buyingBanana = buyBanana.next()
-buyBanana
-buyingBanana
-val doneBuyBanana = buyingBanana.next()
-
+// Pattern matching
 val something = 1
 something match {
 	case 1 => println("One")
@@ -79,6 +45,7 @@ something match {
 	case _ => println("Other")
 }
 
+// class pattern matching
 case class Something(content: String) {}
 val first = Something("first")
 val second = Something("second")
@@ -90,6 +57,7 @@ third match {
 	case _ => println("ELSE")
 }
 
+// Tuple pattern matching
 object Count {
 	def fizzBuzz(value: Int) = {
 		val (fizz, buzz) = ((value % 3 == 0), (value % 5 == 0))
@@ -107,6 +75,7 @@ Count.fizzBuzz(5)
 Count.fizzBuzz(3)
 Count.fizzBuzz(1)
 
+// Type pattern matching
 trait Animal {
 	val name: String
 }
@@ -129,3 +98,38 @@ object Caller {
 
 Caller.say(charlie)
 Caller.say(jinro)
+
+/// Todo
+
+// object States extends scala.Enumeration {
+// 	type State = Value
+// 	var Todo, Doing, Done = Value
+// }
+
+// trait State
+// case object Todo extends State
+// case object Doing extends State
+// case object Done extends State
+
+trait Task {
+	val id: Int
+	def next(): Task
+}
+
+case class Todo(id: Int, title: String) extends Task {
+	def next(): Doing = Doing(id, title)
+}
+
+case class Doing(id: Int, title: String) extends Task {
+	def next(): Done = Done(id, title)
+}
+
+case class Done(id: Int, title: String) extends Task {
+	def next(): Done = this
+}
+
+val buyBanana = Todo(id = 0, title = "Buy Banana")
+val buyingBanana = buyBanana.next()
+// buyBanana
+// buyingBanana
+val doneBuyBanana = buyingBanana.next()
