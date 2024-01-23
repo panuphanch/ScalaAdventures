@@ -42,11 +42,22 @@ object States extends scala.Enumeration {
 	var Todo, Doing, Done = Value
 }
 
-case class Task(id: Int, title: String, state: States.State = States.Todo) {
+trait TaskTrait {
+	val id: Int
+	def next(): TaskTrait
+	def previous(): TaskTrait
+}
+
+case class Task(id: Int, title: String, state: States.State = States.Todo) extends TaskTrait {
 	import States._
 	def next(): Task = {
 		if (state == Todo) copy(state = Doing)
 		else copy(state = Done)
+	}
+
+	def previous(): Task = {
+		if (state == Done) copy(state = Doing)
+		else copy(state = Todo)
 	}
 }
 
