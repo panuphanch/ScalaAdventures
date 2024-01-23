@@ -101,3 +101,26 @@ Count.fizzBuzz(15)
 Count.fizzBuzz(5)
 Count.fizzBuzz(3)
 Count.fizzBuzz(1)
+
+trait Animal {
+	val name: String
+}
+
+case class Dog(name: String) extends Animal {}
+case class Cat(name: String) extends Animal {}
+
+val charlie = Dog("Charlie")
+val jinro = Cat("Jinro")
+
+object Caller {
+	def say(animal: Animal) = {
+		animal match {
+			case Dog(name) => println(s"$name says Woof")
+			case Cat(_) => println("Meow")
+			case _ => println("????")
+		}
+	}
+}
+
+Caller.say(charlie)
+Caller.say(jinro)
