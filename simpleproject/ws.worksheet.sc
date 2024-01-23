@@ -84,3 +84,20 @@ third match {
 	case Something(content) if (content == "second") => println("SECOND")
 	case _ => println("ELSE")
 }
+
+object Count {
+	def fizzBuzz(value: Int) = {
+		val (fizz, buzz) = ((value % 3 == 0), (value % 5 == 0))
+		(fizz, buzz) match {
+			case (true, true) => "FizzBuzz"
+			case (true, false) => "Fizz"
+			case (false, true) => "Buzz"
+			case _ => value.toString()
+		}
+	}
+}
+
+Count.fizzBuzz(15)
+Count.fizzBuzz(5)
+Count.fizzBuzz(3)
+Count.fizzBuzz(1)
