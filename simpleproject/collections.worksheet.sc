@@ -43,3 +43,31 @@ val listrange2 = (1 to 10).toList
 val listrange3 = (1 until 5).toList
 val listrange4 = List.range(1, 5)
 val listrange5 = List.range(1, 10, 3)
+
+
+// Map
+val items = Map(
+    "CPU" -> "100",
+    "Ram" -> "200",
+    "Monitor" -> "300"
+)
+items.keys
+items.values
+
+val states = collection.mutable.Map("AK" -> "Alaska")
+states += ("AL" -> "Alabama")
+states ++= Map("AR" -> "Arkansas", "AZ" -> "Arizona", "CA" -> "California", "CO" -> "Colorado")
+states -= "AR"
+states --= List("AL", "AZ")
+states("AK") = "Alaska, A Really Big State"
+states("AK")
+val ratings = Map(
+    "Lady in the Water" -> 3.0,
+    "Snakes on a Plane" -> 4.0,
+    "You, Me and Dupree" -> 3.5
+)
+for (rating <- ratings) println(s"$rating._1, $rating._2")
+for ((k, v) <- ratings) println(s"$k, $v")
+ratings.foreach { case (k, v) =>
+    println(s"$k = $v")
+}
