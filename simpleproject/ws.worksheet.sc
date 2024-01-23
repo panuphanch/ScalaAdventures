@@ -37,10 +37,16 @@ val p2 = Person("Meee", 37)
 p1 == p2
 p1.toString()
 
-object States extends scala.Enumeration {
-	type State = Value
-	var Todo, Doing, Done = Value
-}
+// object States extends scala.Enumeration {
+// 	type State = Value
+// 	var Todo, Doing, Done = Value
+// }
+
+trait State
+case object Todo extends State
+case object Doing extends State
+case object Done extends State
+
 
 trait TaskTrait {
 	val id: Int
@@ -48,8 +54,7 @@ trait TaskTrait {
 	def previous(): TaskTrait
 }
 
-case class Task(id: Int, title: String, state: States.State = States.Todo) extends TaskTrait {
-	import States._
+case class Task(id: Int, title: String, state: State = Todo) extends TaskTrait {
 	def next(): Task = {
 		if (state == Todo) copy(state = Doing)
 		else copy(state = Done)
@@ -116,7 +121,7 @@ object Caller {
 	def say(animal: Animal) = {
 		animal match {
 			case Dog(name) => println(s"$name says Woof")
-			case Cat(_) => println("Meow")
+			case Cat(_) => println("Meow") // Use `_` to ignore parameter
 			case _ => println("????")
 		}
 	}
