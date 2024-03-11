@@ -1,0 +1,26 @@
+trigger: none
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: LoadStage
+  dependsOn: []
+  jobs:
+    - job: LoadJob
+      steps:
+      - bash: |
+          ## set to secret variable
+          echo "##vso[task.setvariable variable=licenseKey;issecret=true;isOutput=true]$LICENSE_KEY"
+        name: KeyTask
+        
+- stage: UseStage
+  dependsOn: [LoadStage]
+  variables:
+    LoadKey: $[stageDependencies.LoadStage.LoadJob.outputs['KeyTask.licenseKey']]
+  jobs:
+    - job: UseJob
+      steps:
+      - bash: |
+          echo "LicenseKey from LoadStage: $(LoadKey)"
